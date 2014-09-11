@@ -4,7 +4,8 @@ The project will consist a configurable build agent and a web dashboard to creat
 
 ## Some references:
 [Continuous Delivery Maturity Model](https://developer.ibm.com/urbancode/docs/continuous-delivery-maturity-model/)
-[Thoghtworks Continuous Integration what's what](http://www.thoughtworks.com/continuous-integration)
+
+[Thoughtworks Continuous Integration what's what](http://www.thoughtworks.com/continuous-integration)
 
 ##0.01 goals:
 - ~~Able to create a build agent as a WCF service hosted as a windows service.~~
