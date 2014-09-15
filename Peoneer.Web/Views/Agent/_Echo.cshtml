@@ -1,0 +1,8 @@
+﻿@model Peoneer.Web.Models.EchoViewModel
+@if (Model.Request != null)
+{
+    <div>
+        <p>[@Model.Request.TimeStamp] - @Model.Request.Message</p>
+        <p>[@Model.Response.TimeStamp] - @Model.Response.Message</p>
+    </div>
+}

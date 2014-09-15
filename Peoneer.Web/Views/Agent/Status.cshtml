@@ -1,0 +1,17 @@
+﻿@model Peoneer.Web.Models.AgentViewModel
+@{
+    ViewBag.Title = "Status";
+}
+
+<h2>Status of @Model.Name</h2>
+<p><span>Endpoint: @Model.Endpoint</span></p>
+@using (Ajax.BeginForm("Echo", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "echo", InsertionMode = InsertionMode.Replace}))
+{
+    <input name="id" type="hidden" value="@Model.Name"/>
+    <input name="message" type="text" value=""/>
+    <input type="submit" value="Echo!"/>
+}
+
+<div id="echo">
+    
+</div>

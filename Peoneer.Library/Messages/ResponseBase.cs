@@ -1,10 +1,6 @@
-﻿using System;
-
-namespace Peoneer.Library.Messages
+﻿namespace Peoneer.Library.Messages
 {
-    public class ResponseBase
+    public class ResponseBase : TimeStampedMessage
     {
-        public object Payload { get; set; }
-        public Exception Exception { get; set; }
     }
 }

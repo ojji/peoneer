@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Library\Utilities\WcfChannelFactoryWrapperTests.cs" />
+    <Compile Include="Library\Utilities\WcfKnownTypesProviderTests.cs" />
+    <Compile Include="Messages\TimeStampedMessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

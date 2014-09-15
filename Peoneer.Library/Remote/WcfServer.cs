@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using Peoneer.Library.Core;
@@ -17,9 +16,28 @@ namespace Peoneer.Library.Remote
 
         }
 
+        public static void Configure(ServiceConfiguration config)
+        {
+            config.AddServiceEndpoint(typeof(IMessageProcessor), new WSHttpBinding(), new Uri(StartupUri));
+            var serviceMetadataBehavior = new ServiceMetadataBehavior
+            {
+                HttpGetUrl = new Uri(StartupUri),
+                HttpGetEnabled = true,
+                MetadataExporter = {PolicyVersion = PolicyVersion.Policy15}
+            };
+            config.Description.Behaviors.Add(serviceMetadataBehavior);
+        }
+
         public ResponseBase ProcessMessage(RequestBase request)
         {
-            throw new NotImplementedException();
+            if (request.GetType().IsAssignableFrom(typeof (EchoRequest)))
+            {
+                var req = request as EchoRequest;
+                ResponseBase response = new EchoResponse {Message = string.Format("Echo: {0}", req.Message)};
+                return response;
+            }
+
+            return null;
         }
 
         public void Start()
@@ -28,12 +46,7 @@ namespace Peoneer.Library.Remote
             {
                 Stop();
             }
-            _serviceHost = new ServiceHost(typeof(WcfServer), new Uri(StartupUri));
-            ServiceMetadataBehavior serviceMetadataBehavior = new ServiceMetadataBehavior();
-            serviceMetadataBehavior.HttpGetEnabled = true;
-            serviceMetadataBehavior.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-            _serviceHost.Description.Behaviors.Add(serviceMetadataBehavior);
-
+            _serviceHost = new ServiceHost(typeof(WcfServer));
             _serviceHost.Open();
         }
 

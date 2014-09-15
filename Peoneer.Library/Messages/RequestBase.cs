@@ -1,7 +1,6 @@
 ﻿namespace Peoneer.Library.Messages
 {
-    public class RequestBase
+    public class RequestBase : TimeStampedMessage
     {
-        public object Payload { get; set; }
     }
 }

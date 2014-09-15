@@ -1,0 +1,21 @@
+﻿@model List<Peoneer.Web.Models.AgentViewModel>
+@{
+    ViewBag.Title = "Build agents";
+}
+
+<h2>Build agents registered</h2>
+<table>
+    <tr>
+        <th>Agent name</th>
+        <th>Agent endpoint</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Endpoint</td>
+            <td>@Html.ActionLink("Show status", "Status", new { id = item.Name })</td>
+        </tr>
+    }
+</table>
