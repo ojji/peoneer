@@ -2,7 +2,7 @@
 using Peoneer.Library.Messages;
 using Peoneer.Library.Utilities;
 
-namespace Peoneer.Tests.Library.Utilities
+namespace Peoneer.Library.Tests.Utilities
 {
     [TestFixture]
     public class WcfKnownTypesProviderTests

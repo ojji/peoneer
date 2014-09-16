@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Peoneer.Library.Core;
 using Peoneer.Library.Messages;
 
-namespace Peoneer.Tests.Messages
+namespace Peoneer.Library.Tests.Messages
 {
     [TestFixture]
     public class TimeStampedMessageTests

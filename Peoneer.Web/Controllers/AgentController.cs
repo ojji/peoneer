@@ -1,38 +1,56 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using Peoneer.Library.Core;
 using Peoneer.Library.Messages;
-using Peoneer.Library.Remote;
-using Peoneer.Library.Utilities;
 using Peoneer.Web.Models;
 
 namespace Peoneer.Web.Controllers
 {
     public class AgentController : Controller
     {
-        private const string ServiceUri = "http://localhost:27500/service";
-        // GET: Agent
+        private readonly IBuildAgentRepository _buildAgentRepository;
+
+        public AgentController() : this(new InMemoryBuildAgentRepository())
+        {
+            
+        }
+        public AgentController(IBuildAgentRepository buildAgentRepository)
+        {
+            _buildAgentRepository = buildAgentRepository;
+            _buildAgentRepository.AddAgent("http://localhost:27500/service");
+        }
+
         public ActionResult Index()
         {
             // get registered build agents
-            var registeredServers = new List<AgentViewModel> { new AgentViewModel { Name = "Agent-1", Endpoint = ServiceUri} };
+            var registeredAgents = _buildAgentRepository.GetAgents();
+            var first = registeredAgents.First();
+            var registeredServers = new List<AgentViewModel> { new AgentViewModel { Endpoint = first.EndpointAddress, Name = first.Name} };
             return View(registeredServers);
         }
 
         public ActionResult Status(string id)
         {
-            var agentRequested = new AgentViewModel { Name = "Agent-1", Endpoint = ServiceUri };
-            return View(agentRequested);
+            var agentRequested = _buildAgentRepository.GetAgent(id);
+            if (agentRequested != null)
+            {
+                return View(new AgentViewModel { Name= agentRequested.Name, Endpoint = agentRequested.EndpointAddress });
+            }
+            return View();
         }
 
         [HttpPost]
         public ActionResult Echo(string id, string message)
         {
-            
-            var factory = new WcfChannelFactoryWrapper<IMessageProcessor>(ServiceUri);
-            var client = factory.GetClient();
-            var request = new EchoRequest {Message = message};
-            var response = client.ProcessMessage(request) as EchoResponse;
-            return PartialView("_Echo", new EchoViewModel() {Request = request, Response = response});
+            var agentEchoed = _buildAgentRepository.GetAgent(id);
+            if (agentEchoed != null)
+            {
+                var request = new EchoRequest { Message = message };
+                var response = agentEchoed.ProcessMessage(request) as EchoResponse;
+                return PartialView("_Echo", new EchoViewModel { Request = request, Response = response });
+            }
+            return PartialView("_Echo");
         }
     }
 }

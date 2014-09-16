@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peoneer.Tests", "Peoneer.Tests\Peoneer.Tests.csproj", "{9ABB0717-FB09-4EF1-8FF4-9C4258CA8332}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peoneer.Library.Tests", "Peoneer.Library.Tests\Peoneer.Library.Tests.csproj", "{9ABB0717-FB09-4EF1-8FF4-9C4258CA8332}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Peoneer.Service", "Peoneer.Service\Peoneer.Service.csproj", "{8A4743DF-1E3E-450E-A310-F1C08825130C}"
 EndProject

@@ -3,7 +3,7 @@ using System.ServiceModel;
 using NUnit.Framework;
 using Peoneer.Library.Utilities;
 
-namespace Peoneer.Tests.Library.Utilities
+namespace Peoneer.Library.Tests.Utilities
 {
     [TestFixture]
     public class WcfChannelFactoryWrapperTests

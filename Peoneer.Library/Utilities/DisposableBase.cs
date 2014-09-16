@@ -12,10 +12,6 @@ namespace Peoneer.Library.Utilities
 
         public void Dispose()
         {
-            if (IsDisposed)
-            {
-                throw new InvalidOperationException("The object has been already disposed.");
-            }
             Dispose(true);
             GC.SuppressFinalize(this);
         }

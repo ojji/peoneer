@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using Peoneer.Library.Core;
+using Peoneer.Web.Models;
 
 namespace Peoneer.Web.Controllers
 {
@@ -6,7 +9,7 @@ namespace Peoneer.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new ProjectsViewModel());
         }
     }
 }

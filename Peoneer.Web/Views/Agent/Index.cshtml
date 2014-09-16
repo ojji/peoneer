@@ -2,9 +2,11 @@
 @{
     ViewBag.Title = "Build agents";
 }
+<div class="page-header">
+    <h2>Build agents registered</h2>
+</div>
 
-<h2>Build agents registered</h2>
-<table>
+<table class="table table-striped table-hover">
     <tr>
         <th>Agent name</th>
         <th>Agent endpoint</th>
@@ -15,7 +17,7 @@
         <tr>
             <td>@item.Name</td>
             <td>@item.Endpoint</td>
-            <td>@Html.ActionLink("Show status", "Status", new { id = item.Name })</td>
+            <td>@Html.ActionLink("Show status", "Status", new {id = item.Name})</td>
         </tr>
     }
 </table>

@@ -6,7 +6,6 @@ namespace Peoneer.Library.Utilities
 {
     public class WcfChannelFactoryWrapper<T> : DisposableBase where T: class
     {
-
         public WcfChannelFactoryWrapper(string endpointUrl)
         {
             if (string.IsNullOrEmpty(endpointUrl))
