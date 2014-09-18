@@ -30,15 +30,33 @@ namespace Peoneer.Library.Utilities
 
         protected override void Dispose(bool isDisposing)
         {
-            if (Client != null)
+            if (Client != null && !IsDisposed)
             {
-                if (((ICommunicationObject)Client).State == CommunicationState.Faulted)
+                bool success = false;
+                var clientAsCommunicationObject = (ICommunicationObject)Client;
+                try
                 {
-                    ((ICommunicationObject)Client).Abort();
+                    if (clientAsCommunicationObject.State != CommunicationState.Faulted)
+                    {
+                        clientAsCommunicationObject.Close();
+                        success = true;
+                    }
                 }
-                else
+                catch (TimeoutException ex)
                 {
-                    ((ICommunicationObject)Client).Close();
+                    // todo: log
+                }
+                catch (CommunicationException ex)
+                {
+                    // todo: log
+                }
+                finally
+                {
+                    if (!success)
+                    {
+                        clientAsCommunicationObject.Abort();
+                        Client = null;
+                    }
                 }
             }
 

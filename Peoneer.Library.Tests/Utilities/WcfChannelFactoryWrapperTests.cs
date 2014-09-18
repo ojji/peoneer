@@ -56,7 +56,7 @@ namespace Peoneer.Library.Tests.Utilities
         }
 
         [Test]
-        public void Calling_Dispose_on_a_closed_channel_should_throw_InvalidOperationException()
+        public void Calling_Dispose_on_a_closed_channel_should_not_throw()
         {
             TestDelegate alreadyClosedChannel = () =>
             {
@@ -66,7 +66,7 @@ namespace Peoneer.Library.Tests.Utilities
                 subject.Dispose();
             };
 
-            Assert.Throws<InvalidOperationException>(alreadyClosedChannel);
+            Assert.DoesNotThrow(alreadyClosedChannel);
         }
     }
 }
