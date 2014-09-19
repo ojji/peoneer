@@ -6,9 +6,10 @@ namespace Peoneer.Library.Core
     public class BuildAgent : IBuildAgent
     {
         private string _name = "BuildAgent-1";
+
         public BuildAgentPropertiesResponse GetBuildAgentProperties()
         {
-            return new BuildAgentPropertiesResponse()
+            return new BuildAgentPropertiesResponse
             {
                 Name = _name,
                 Os = "Windows"
@@ -17,7 +18,7 @@ namespace Peoneer.Library.Core
 
         public EchoResponse GenerateEcho(EchoRequest request)
         {
-            return new EchoResponse()
+            return new EchoResponse
             {
                 Message = string.Format("Echo: {0}",request.Message)
             };

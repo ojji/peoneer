@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ProjectTests.cs" />
     <Compile Include="Remote\WcfClientTests.cs" />
     <Compile Include="Utilities\WcfChannelTests.cs" />
     <Compile Include="Utilities\WcfKnownTypesProviderTests.cs" />

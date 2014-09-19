@@ -45,10 +45,19 @@
     <Compile Include="Core\IBuildAgentServer.cs" />
     <Compile Include="Core\IBuildAgentRepository.cs" />
     <Compile Include="Core\IClock.cs" />
+    <Compile Include="Core\IIntegratable.cs" />
+    <Compile Include="Core\IIntegrationResult.cs" />
+    <Compile Include="Core\IntegrationResult.cs" />
+    <Compile Include="Core\IProject.cs" />
+    <Compile Include="Core\ISourceRepository.cs" />
+    <Compile Include="Core\IStage.cs" />
+    <Compile Include="Core\Project.cs" />
     <Compile Include="Messages\BuildAgentPropertiesRequest.cs" />
     <Compile Include="Messages\BuildAgentPropertiesResponse.cs" />
     <Compile Include="Messages\EchoRequest.cs" />
     <Compile Include="Messages\EchoResponse.cs" />
+    <Compile Include="Messages\IntegrationRequest.cs" />
+    <Compile Include="Messages\IntegrationResponse.cs" />
     <Compile Include="Messages\RequestBase.cs" />
     <Compile Include="Messages\ResponseBase.cs" />
     <Compile Include="Messages\ResponseStatus.cs" />
@@ -58,6 +67,7 @@
     <Compile Include="Remote\IMessageProcessor.cs" />
     <Compile Include="Remote\WcfClient.cs" />
     <Compile Include="Remote\WcfServer.cs" />
+    <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Utilities\DisposableBase.cs" />
     <Compile Include="Remote\IChannel.cs" />
     <Compile Include="Utilities\SystemClock.cs" />
