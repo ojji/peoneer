@@ -59,8 +59,9 @@
     <Compile Include="Remote\WcfClient.cs" />
     <Compile Include="Remote\WcfServer.cs" />
     <Compile Include="Utilities\DisposableBase.cs" />
+    <Compile Include="Remote\IChannel.cs" />
     <Compile Include="Utilities\SystemClock.cs" />
-    <Compile Include="Utilities\WcfChannelFactoryWrapper.cs" />
+    <Compile Include="Remote\WcfChannel.cs" />
     <Compile Include="Utilities\WcfKnownTypesProvider.cs" />
   </ItemGroup>
   <ItemGroup />

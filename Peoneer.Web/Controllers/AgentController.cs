@@ -47,8 +47,8 @@ namespace Peoneer.Web.Controllers
             if (agentEchoed != null)
             {
                 var request = new EchoRequest { Message = message };
-                var response = agentEchoed.ProcessMessage(request) as EchoResponse;
-                return PartialView("_Echo", new EchoViewModel { Request = request, Response = response });
+                var response = agentEchoed.EchoMessage(message);
+                return PartialView("_Echo", new EchoViewModel { Request = request, Response = (EchoResponse) response });
             }
             return PartialView("_Echo");
         }

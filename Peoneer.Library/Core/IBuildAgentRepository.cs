@@ -16,7 +16,7 @@ namespace Peoneer.Library.Core
         private List<BuildAgentClientBase> _buildAgents = new List<BuildAgentClientBase>();
         public void AddAgent(string endpoint)
         {
-            _buildAgents.Add(new WcfClient(endpoint));
+            _buildAgents.Add(new WcfClient(new WcfChannel<IMessageProcessor>(endpoint)));
         }
 
         public IEnumerable<BuildAgentClientBase> GetAgents()

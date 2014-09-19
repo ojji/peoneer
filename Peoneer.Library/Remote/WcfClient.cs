@@ -1,43 +1,46 @@
 ﻿using System;
+using System.ServiceModel;
 using Peoneer.Library.Core;
 using Peoneer.Library.Messages;
-using Peoneer.Library.Utilities;
 
 namespace Peoneer.Library.Remote
 {
     public class WcfClient : BuildAgentClientBase
     {
-        private readonly WcfChannelFactoryWrapper<IMessageProcessor> _innerProcessor;
+        private readonly IChannel<IMessageProcessor> _innerChannel;
 
-        public WcfClient(string endpointAddress) : this(endpointAddress, null) { }
-        public WcfClient(string endpointAddress, string name)
+        public WcfClient(IChannel<IMessageProcessor> innerChannel) : this(innerChannel, null) { }
+        public WcfClient(IChannel<IMessageProcessor> innerChannel, string name)
         {
-            EndpointAddress = endpointAddress;
-            _innerProcessor = new WcfChannelFactoryWrapper<IMessageProcessor>(endpointAddress);
+            if (innerChannel == null) { throw new ArgumentNullException("innerChannel"); }
+            _innerChannel = innerChannel;
+            EndpointAddress = innerChannel.EndpointAddress.ToString();
             // if name is not set, try to get it from the buildagent itself
-            if (string.IsNullOrEmpty(name))
-            {
-                Name = GetBuildAgentName();
-            }
+            Name = string.IsNullOrEmpty(name) ? GetBuildAgentName() : name;
         }
 
         private string GetBuildAgentName()
         {
             var request = new BuildAgentPropertiesRequest();
-            var response = ProcessMessage(request) as BuildAgentPropertiesResponse;
-            if (response == null || response.ResponseStatus == ResponseStatus.Failure)
+            var response = SendMessage(request);
+            if (response is BuildAgentPropertiesResponse && response.ResponseStatus != ResponseStatus.Failure)
             {
-                return "Unknown";
+                return ((BuildAgentPropertiesResponse)response).Name;
             }
-            return response.Name;
+            return string.Format("Unknown");
         }
-
-        public override ResponseBase ProcessMessage(RequestBase request)
+        
+        private ResponseBase SendMessage(RequestBase request)
         {
             ResponseBase response;
             try
             {
-                response = _innerProcessor.GetClient().ProcessMessage(request);
+                response = _innerChannel.Client.ProcessMessage(request);
+            }
+            catch (EndpointNotFoundException)
+            {
+                response = new ResponseBase();
+                response.AddErrorMessage("Can't connect to buildagent.");
             }
             catch (Exception ex)
             {
@@ -47,14 +50,24 @@ namespace Peoneer.Library.Remote
             return response;
         }
 
+        //public override IIntegrationResult ForceBuild(string projectName)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && !IsDisposed)
             {
-                _innerProcessor.Dispose();
+                _innerChannel.Dispose();
             }
             
             base.Dispose(disposing);
+        }
+
+        public override ResponseBase EchoMessage(string message)
+        {
+            return SendMessage(new EchoRequest {Message = message});
         }
     }
 }

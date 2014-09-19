@@ -15,12 +15,12 @@ namespace Peoneer.IntegrationTests
             wcfServer.Start();
 
             // create the client and test it
-            var client = new WcfClient(wcfServer.EndpointAddress, "testclient");
+            var client = new WcfClient(new WcfChannel<IMessageProcessor>(wcfServer.EndpointAddress), "testclient");
             Assert.DoesNotThrow(() =>
             {
-                var response = client.ProcessMessage(new EchoRequest() {Message = "teszt"});
+                var response = client.EchoMessage("teszt");
                 Assert.IsInstanceOf<EchoResponse>(response);
-                Assert.That((response as EchoResponse).Message, Is.StringContaining("Echo: teszt"));
+                Assert.That(((EchoResponse)response).Message, Is.StringContaining("Echo: teszt"));
             });
 
             // now stop the server and dispose the client and check if it throws

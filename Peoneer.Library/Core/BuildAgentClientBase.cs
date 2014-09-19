@@ -1,13 +1,14 @@
 ﻿using Peoneer.Library.Messages;
-using Peoneer.Library.Remote;
 using Peoneer.Library.Utilities;
 
 namespace Peoneer.Library.Core
 {
-    public abstract class BuildAgentClientBase : DisposableBase, IMessageProcessor
+    public abstract class BuildAgentClientBase : DisposableBase
     {
         public string Name { get; protected set; }
         public string EndpointAddress { get; protected set; }
-        public abstract ResponseBase ProcessMessage(RequestBase request);
+
+        //public abstract IIntegrationResult ForceBuild(string projectName);
+        public abstract ResponseBase EchoMessage(string message);
     }
 }
