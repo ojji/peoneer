@@ -5,7 +5,7 @@
 		<MajorVersion>0</MajorVersion>
 		<FileMajorVersion Condition=" '$(FileMajorVersion)' == '' ">$(MajorVersion)</FileMajorVersion>
 		<FileMajorVersion Condition=" '$(FileMajorVersion)' != '' ">$(FileMajorVersion)</FileMajorVersion>
-		<MinorVersion>0</MinorVersion>
+		<MinorVersion>1</MinorVersion>
 		<FileMinorVersion Condition=" '$(FileMinorVersion)' == '' ">$(MinorVersion)</FileMinorVersion>
 		<FileMinorVersion Condition=" '$(FileMinorVersion)' != '' ">$(FileMinorVersion)</FileMinorVersion>
 		<MacroVersion>0</MacroVersion>
@@ -24,7 +24,7 @@
 		<CallTarget Targets="BuildSolution" />
 		<CallTarget Targets="PostBuild" />
 	</Target>
-	<Target Name="UpdateAssemblyVersion">
+	<Target Name="UpdateVersion">
 		<Message Text="Setting AssemblyVersion to: $(MajorVersion).$(MinorVersion).$(MacroVersion).$(BuildNumber), AssemblyFileVersion to: $(FileMajorVersion).$(FileMinorVersion).$(FileMacroVersion).$(FileBuildNumber)" />
 		<AssemblyInfo 
 			AssemblyInfoFiles="@(AssemblyInfoFiles)"
@@ -40,7 +40,7 @@
 	</Target>
 	<Target Name="PreBuild">
 		<Message Text="--- PreBuild section ---" />
-		<CallTarget Targets="UpdateAssemblyVersion" />
+		<CallTarget Targets="UpdateVersion" />
 	</Target>
 	<Target Name="BuildSolution">
 		<Message Text="--- Building Solution ---" />
