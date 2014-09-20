@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Service_closing_causes_exception_in_client_when_it_is_disposed_bug.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

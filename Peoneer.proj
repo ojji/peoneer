@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+	<Import Project="$(MSBuildExtensionsPath)\ExtensionPack\4.0\MSBuild.ExtensionPack.tasks"/>
+	<PropertyGroup>
+		<MajorVersion>0</MajorVersion>
+		<FileMajorVersion Condition=" '$(FileMajorVersion)' == '' ">$(MajorVersion)</FileMajorVersion>
+		<FileMajorVersion Condition=" '$(FileMajorVersion)' != '' ">$(FileMajorVersion)</FileMajorVersion>
+		<MinorVersion>0</MinorVersion>
+		<FileMinorVersion Condition=" '$(FileMinorVersion)' == '' ">$(MinorVersion)</FileMinorVersion>
+		<FileMinorVersion Condition=" '$(FileMinorVersion)' != '' ">$(FileMinorVersion)</FileMinorVersion>
+		<MacroVersion>0</MacroVersion>
+		<FileMacroVersion Condition=" '$(FileMacroVersion)' == '' ">$(MacroVersion)</FileMacroVersion>
+		<FileMacroVersion Condition=" '$(FileMacroVersion)' != '' ">$(FileMacroVersion)</FileMacroVersion>
+		<BuildNumber Condition=" '$(BuildNumber)' != '' ">$(BuildNumber)</BuildNumber>
+		<BuildNumber Condition=" '$(BuildNumber)' == '' ">0</BuildNumber>
+		<FileBuildNumber Condition=" '$(FileBuildNumber)' == '' ">$(BuildNumber)</FileBuildNumber>
+		<FileBuildNumber Condition=" '$(FileBuildNumber)' != '' ">$(FileBuildNumber)</FileBuildNumber>
+	</PropertyGroup>
+	<ItemGroup>
+		<AssemblyInfoFiles Include="VersionInfo.cs" />
+	</ItemGroup>
+	<Target Name="Build">
+		<CallTarget Targets="PreBuild" />
+		<CallTarget Targets="BuildSolution" />
+		<CallTarget Targets="PostBuild" />
+	</Target>
+	<Target Name="UpdateAssemblyVersion">
+		<Message Text="Setting AssemblyVersion to: $(MajorVersion).$(MinorVersion).$(MacroVersion).$(BuildNumber), AssemblyFileVersion to: $(FileMajorVersion).$(FileMinorVersion).$(FileMacroVersion).$(FileBuildNumber)" />
+		<AssemblyInfo 
+			AssemblyInfoFiles="@(AssemblyInfoFiles)"
+			AssemblyMajorVersion="$(MajorVersion)"
+			AssemblyMinorVersion="$(MinorVersion)"
+			AssemblyBuildNumber="$(MacroVersion)"
+			AssemblyRevision="$(BuildNumber)"
+			AssemblyFileMajorVersion="$(FileMajorVersion)"
+			AssemblyFileMinorVersion="$(FileMinorVersion)"
+			AssemblyFileBuildNumber="$(FileMacroVersion)"
+			AssemblyFileRevision="$(FileBuildNumber)"
+			/>
+	</Target>
+	<Target Name="PreBuild">
+		<Message Text="--- PreBuild section ---" />
+		<CallTarget Targets="UpdateAssemblyVersion" />
+	</Target>
+	<Target Name="BuildSolution">
+		<Message Text="--- Building Solution ---" />
+		<MSBuild Projects="Peoneer.sln"/>
+	</Target>
+	<Target Name="PostBuild">
+		<Message Text="--- PostBuild section ---" />
+	</Target>
+</Project>
